@@ -166,7 +166,7 @@
             },
             gotoLoop () {
                 loopDownloadPage().then(res => {
-
+                    console.log('循环下载完毕')
                 })
             },
             handleSizeChange: function (size) {

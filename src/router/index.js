@@ -20,58 +20,58 @@ export default new Router({
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: { title: '系统首页' }
                 },
-                {
-                    path: '/feedback',
-                    component: resolve => require(['../components/page/feedback.vue'], resolve),
-                    meta: { title: '用户反馈' }
-                },
-                {
-                    path: '/icon',
-                    component: resolve => require(['../components/page/Icon.vue'], resolve),
-                    meta: { title: '自定义图标' }
-                },
+                // {
+                //     path: '/feedback',
+                //     component: resolve => require(['../components/page/feedback.vue'], resolve),
+                //     meta: { title: '用户反馈' }
+                // },
+                // {
+                //     path: '/icon',
+                //     component: resolve => require(['../components/page/Icon.vue'], resolve),
+                //     meta: { title: '自定义图标' }
+                // },
                 {
                     path: '/table',
                     name: 'table',
                     component: resolve => require(['../components/page/BaseTable.vue'], resolve),
                     meta: { title: '收益查看' }
                 },
-                {
-                    path: '/tableTwo',
-                    name: 'tableTwo',
-                    component: resolve => require(['../components/page/BaseTableTwo.vue'], resolve),
-                    meta: { title: '收益查看' }
-                },
+                // {
+                //     path: '/tableTwo',
+                //     name: 'tableTwo',
+                //     component: resolve => require(['../components/page/BaseTableTwo.vue'], resolve),
+                //     meta: { title: '收益查看' }
+                // },
                 {
                     path: '/promotion',
                     component: resolve => require(['../components/page/promotionCode.vue'], resolve),
                     meta: { title: '生成推广码' }
                 },
-                {
-                    path: '/moudle',
-                    component: resolve => require(['../components/page/moudleTable.vue'], resolve),
-                    meta: { title: '模板查询' }
-                },
-                {
-                    path: '/tabs',
-                    component: resolve => require(['../components/page/Tabs.vue'], resolve),
-                    meta: { title: '信息查看' }
-                },
-                {
-                    path: '/formD',
-                    component: resolve => require(['../components/page/FormD.vue'], resolve),
-                    meta: { title: '动态网址' }
-                },
-                {
-                    path: '/formJ',
-                    component: resolve => require(['../components/page/FormJ.vue'], resolve),
-                    meta: { title: '静态网址' }
-                },
-                {
-                    path: '/pub',
-                    component: resolve => require(['../components/page/PubForm.vue'], resolve),
-                    meta: { title: '公众号爬取' }
-                },
+                // {
+                //     path: '/moudle',
+                //     component: resolve => require(['../components/page/moudleTable.vue'], resolve),
+                //     meta: { title: '模板查询' }
+                // },
+                // {
+                //     path: '/tabs',
+                //     component: resolve => require(['../components/page/Tabs.vue'], resolve),
+                //     meta: { title: '信息查看' }
+                // },
+                // {
+                //     path: '/formD',
+                //     component: resolve => require(['../components/page/FormD.vue'], resolve),
+                //     meta: { title: '动态网址' }
+                // },
+                // {
+                //     path: '/formJ',
+                //     component: resolve => require(['../components/page/FormJ.vue'], resolve),
+                //     meta: { title: '静态网址' }
+                // },
+                // {
+                //     path: '/pub',
+                //     component: resolve => require(['../components/page/PubForm.vue'], resolve),
+                //     meta: { title: '公众号爬取' }
+                // },
                 // {
                 //     // 富文本编辑器组件
                 //     path: '/editor',
