@@ -29,6 +29,11 @@
                         {{ (currentPage - 1) * pagesize + scope.$index + 1 }}
                     </template>
                 </el-table-column>
+                <el-table-column label="id" width="80" type="index">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.id}}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column label="主题">
                     <template slot-scope="scope">
                         <span>{{scope.row.title}}</span>
@@ -163,7 +168,14 @@
                 loopDownloadPage().then(res => {
 
                 })
-            }
+            },
+            handleSizeChange: function (size) {
+                this.pagesize = size;
+            },
+            handleCurrentChange: function (currentPage) {
+                this.currentPage = currentPage;
+                // console.log(currentPage)
+            },
         }
     }
 </script>
