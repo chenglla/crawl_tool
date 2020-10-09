@@ -41,7 +41,7 @@
                     {
                         icon: 'el-icon-lx-home',
                         index: 'dashboard',
-                        title: '系统首页'
+                        title: '新建采集任务'
                     },
                     // {
                     //     icon: 'el-icon-lx-calendar',
@@ -61,7 +61,7 @@
                     {
                         icon: 'el-icon-lx-cascades',
                         index: 'table',
-                        title: '查询采集任务'
+                        title: '操作采集任务'
                     },
                     {
                         icon: 'el-icon-picture-outline',

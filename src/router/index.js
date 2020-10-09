@@ -18,7 +18,7 @@ export default new Router({
                 {
                     path: '/dashboard',
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
-                    meta: { title: '系统首页' }
+                    meta: { title: '新建采集任务' }
                 },
                 // {
                 //     path: '/feedback',
@@ -34,7 +34,7 @@ export default new Router({
                     path: '/table',
                     name: 'table',
                     component: resolve => require(['../components/page/BaseTable.vue'], resolve),
-                    meta: { title: '收益查看' }
+                    meta: { title: '操作采集任务' }
                 },
                 // {
                 //     path: '/tableTwo',
@@ -45,7 +45,7 @@ export default new Router({
                 {
                     path: '/promotion',
                     component: resolve => require(['../components/page/promotionCode.vue'], resolve),
-                    meta: { title: '生成推广码' }
+                    meta: { title: '在线打开页面' }
                 },
                 // {
                 //     path: '/moudle',
