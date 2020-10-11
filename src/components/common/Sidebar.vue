@@ -68,6 +68,11 @@
                         index: 'promotion',
                         title: '在线打开页面'
                     },
+                    {
+                        icon: 'el-icon-lx-cascades',
+                        index: 'feedback',
+                        title: '任务列表'
+                    },
                     // {
                     //     icon: 'el-icon-picture-outline',
                     //     index: 'promotion',

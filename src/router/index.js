@@ -20,11 +20,11 @@ export default new Router({
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: { title: '新建采集任务' }
                 },
-                // {
-                //     path: '/feedback',
-                //     component: resolve => require(['../components/page/feedback.vue'], resolve),
-                //     meta: { title: '用户反馈' }
-                // },
+                {
+                    path: '/feedback',
+                    component: resolve => require(['../components/page/feedback.vue'], resolve),
+                    meta: { title: '任务列表' }
+                },
                 // {
                 //     path: '/icon',
                 //     component: resolve => require(['../components/page/Icon.vue'], resolve),
