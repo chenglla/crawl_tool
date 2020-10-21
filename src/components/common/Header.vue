@@ -68,7 +68,7 @@
 </template>
 <script>
     import bus from '../common/bus';
-    import {updatePwd} from '@/api/index'
+    // import {updatePwd} from '@/api/index'
     import request from '../../../src/utils/request'
     export default {
         data() {

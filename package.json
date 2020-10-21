@@ -8,6 +8,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@jiaminghi/data-view": "^2.10.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "browserslist": "^4.7.0",

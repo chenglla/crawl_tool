@@ -10,12 +10,16 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
 import './components/common/directives';
 import "babel-polyfill";
+// 将自动注册所有组件为全局组件
+import dataV from '@jiaminghi/data-view'
+
+Vue.use(dataV)
 
 Vue.config.productionTip = false
 Vue.use(ElementUI, {
     size: 'small'
 });
-Vue.prototype.$echarts = echarts
+Vue.prototype.echarts = echarts
 Vue.prototype.$axios = axios;
 // 配置请求头，非常重要，有了这个才可以正常使用POST等请求后台数据
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-fromurlencodeed'
