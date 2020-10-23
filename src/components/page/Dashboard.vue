@@ -2,7 +2,7 @@
     <div>
         <el-row>
             <el-card class="box-card">
-                <h2 class="add-title">新建采集任务</h2>
+                <h2 class="add-title">采集任务管理</h2>
                 <el-form ref="form" :model="form" label-width="100px" class="add-form">
                     <el-form-item label="添加任务者">
                         <el-input v-model="form.user"></el-input>
