@@ -84,6 +84,7 @@
         },
         data () {
             return {
+                id:null,
                 // lineChartData: lineChartData.newVisitis,
                 downSucceed: [], // 下载成功
                 option: { // 下载完成的一共有多少任务
@@ -143,10 +144,13 @@
                 typeList: [], // 动静态类型的数据
                 timeList: [], // 添加时间类型的数据
             }
+
         },
         mounted() {
+          this.id=localStorage.getItem('groupId')
+          console.log("拿到的id",this.id)
             this.getAllParams()
-            getAllDown().then(res => {
+            getAllDown({userId:this.id}).then(res => {
                 console.log('下载', res.data)
                 // let temp = this.option
             })
@@ -181,7 +185,7 @@
                 this.$router.push('/feedback')
             },
             getAllParams() {
-                getAllParams().then(res => {
+                getAllParams({userId:this.id}).then(res => {
                     console.log('全部信息：', res.data)
                     if (res.status === 200) {
                         this.downData = res.data.statuss // 下载的不同状态数据

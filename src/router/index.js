@@ -7,8 +7,8 @@ export default new Router({
     routes: [
         {
             path: '/',
-            // redirect: '/login'
-            redirect: '/bigScreen'
+            redirect: '/login'
+            //redirect: '/bigScreen'
             // redirect: '/dashboard'
         },
         {
@@ -129,10 +129,12 @@ export default new Router({
         },
         {
             path: '/login',
+            //name:'login',
             component: resolve => require(['../components/page/Login.vue'], resolve)
         },
         {
             path: '/bigScreen',
+            name:'bigScreen',
             component: resolve => require(['../components/page/bigScreen.vue'], resolve)
         },
         // {

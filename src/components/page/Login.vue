@@ -44,16 +44,25 @@
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
-                    console.log('登录信息：', this.ruleForm, valid)
+                  console.log('登录信息：', this.ruleForm, valid)
+                  console.log('登录信息：', this.ruleForm.username)
+                  console.log('登录信息：', this.ruleForm.password)
+                  console.log('登录信息：',  valid)
+
+
                     if (valid) {
+                      console.log('接口被调用')
                         login({
-                            groupid: this.ruleForm.username,
+                            userName: this.ruleForm.username,
                             password: this.ruleForm.password
                         }).then(res => {
-                            if (res.data.code === 0) {
-                                console.log(res.data)
-                                this.$store.commit('SET_LEVEL', res.data.data.level)
-                                localStorage.setItem('groupId', res.data.data.groupId)
+                            if (res.data.errmsg === 'succeed') {
+                                console.log(res.data.data[0].id)
+                                //this.$store.commit('SET_LEVEL', res.data.data.level)
+
+
+                                localStorage.setItem('groupId', res.data.data[0].id)
+                                console.log("存入的id",localStorage.getItem('groupId'))
                                 // this.$store.commit('SET_GROUPID', res.data.data.groupId)
                                 // this.$store.commit('SET_GROUPID', res.data.data.groupId)
                                 this.$message({
@@ -61,22 +70,28 @@
                                     type: 'success'
                                 });
                                 localStorage.setItem('ms_username',this.ruleForm.username);
-                                if (res.data.data.level === 1) {
-                                    this.$router.push({
-                                        name: 'table',
-                                        query: {
-                                            groupId: res.data.data.groupId
-                                        }
-                                    });
-                                } else {
-                                    this.$router.push({
-                                        name: 'tableTwo',
-                                        query: {
-                                            groupId: res.data.data.groupId
-                                        }
-                                    });
-                                    // this.$router.push('/tableTwo');
-                                }
+                                this.$router.push({
+                                  name: 'bigScreen',
+                                  query: {
+                                    userName: res.data.data.userName
+                                  }
+                                });
+                                // if (res.data.data.level === 1) {
+                                //     this.$router.push({
+                                //         name: 'table',
+                                //         query: {
+                                //             groupId: res.data.data.groupId
+                                //         }
+                                //     });
+                                // } else {
+                                //     this.$router.push({
+                                //         name: 'tableTwo',
+                                //         query: {
+                                //             groupId: res.data.data.groupId
+                                //         }
+                                //     });
+                                //     // this.$router.push('/tableTwo');
+                                // }
 
                             } else {
                                 this.$message.error('用户名或者密码错误');
