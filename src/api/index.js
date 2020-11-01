@@ -35,18 +35,18 @@ export function accessPage () { // 在线打开一个页面
         // params: req
     })
 }
-export function loopDownloadPage () { // 启动循环下载线程
+export function loopDownloadPage (req) { // 启动循环下载线程
     return request({
         url: 'loop_download_page',
         method: 'get',
-        // params: req
+        params: req
     })
 }
-export function getAllDown () { // 获取所有下载不同状态的任务
+export function getAllDown (res) { // 获取所有下载不同状态的任务
     return request({
         url: 'select_task_statuss',
         method: 'get',
-        // params: req
+        params: res
     })
 }
 export function getAllUser () { // 根据查询者获取所有不同状态的任务
@@ -70,10 +70,18 @@ export function getAllByCrawl () { // 根据采集类型获取所有不同状态
         // params: req
     })
 }
-export function getAllParams () { // 获取所有不同类型的数据
+export function getAllParams (res) { // 获取所有不同类型的数据
     return request({
         url: 'select_task_params',
         method: 'get',
-        // params: req
+        params: res
+    })
+}
+export function login (res) { // 获取所有不同类型的数据
+    return request({
+        // url: 'essql/login',
+        url: 'login',
+        method: 'get',
+        params: res
     })
 }

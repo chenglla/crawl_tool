@@ -64,16 +64,21 @@ export default {
   },
     data () {
       return {
+          id:null,
           sumList: [],
           count: 0
       }
     },
     mounted () {
+      this.id=localStorage.getItem('groupId')
+      console.log("拿到的id",this.id)
       this.getAllDownSum()
     },
   methods: {
       getAllDownSum() {
-          getAllDown().then(res => {
+
+          getAllDown({userId:this.id}).then(res => {
+
               this.sumList = res.data.data
               this.count = res.data.total -1
               console.log('下载', res.data)

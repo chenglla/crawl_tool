@@ -99,6 +99,7 @@
     export default {
         data () {
             return {
+                id:null,
                 formInline: {
                     sql: '',
                     deleteSql: '',
@@ -110,6 +111,8 @@
             }
         },
         mounted () {
+          this.id=localStorage.getItem('groupId')
+          console.log("拿到的id",this.id)
         },
         filters: {
             formatDate (time) {
@@ -120,8 +123,10 @@
         methods: {
             gotoOption(option) { // 查询数据
                 if (option === 'select') {
+                  console.log("出来吗",this.id)
                     selectTask({
-                        sql: this.formInline.sql
+                        userId:this.id,
+                        //sql: this.formInline.sql
                     }).then(res => {
                         console.log(res.data)
                         if (res.data.errno === 0) {
@@ -137,6 +142,7 @@
                     })
                 } else if (option === 'delete') {
                     deleteTask({
+                        userId:this.id,
                         sql: this.formInline.deleteSql
                     }).then(res => {
                         if (res.data.errno === 0) {
@@ -150,6 +156,7 @@
                     })
                 } else if (option === 'update') {
                     updateTask({
+                        userId:this.id,
                         sql: this.formInline.updateSql
                     }).then(res => {
                         if (res.data.errno === 0) {
@@ -157,6 +164,7 @@
                                 message: '更新成功',
                                 type: 'success'
                             });
+
                         } else {
                             this.$message.error('更新失败');
                         }
@@ -165,7 +173,7 @@
 
             },
             gotoLoop () {
-                loopDownloadPage().then(res => {
+                loopDownloadPage({userId:this.id,}).then(res => {
                     console.log('循环下载完毕')
                 })
             },

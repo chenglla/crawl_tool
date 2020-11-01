@@ -143,6 +143,7 @@
 export default {
   data() {
     return {
+      id1:null,
       problemTitle: '',
       problemContent: '',
       crawlList: [], // 查询到的采集任务
@@ -159,6 +160,8 @@ export default {
     }
   },
   mounted () {
+    this.id1=localStorage.getItem('groupId')
+    console.log("拿到的id",this.id1)
     this.getCrawlList()
   },
   filters: {
@@ -237,6 +240,7 @@ export default {
         suffix = this.form.suffix
       }
       insertTask({
+        userId:this.id1,
         user: this.form.user,
         url: this.form.url,
         category: this.form.category,
@@ -267,6 +271,7 @@ export default {
         suffix = this.form.suffix
       }
       updateTask({
+        userId:this.id1,
         id: this.id,
         user: this.form.user,
         url: this.form.url,
@@ -283,7 +288,9 @@ export default {
           this.$message({
             message: '修改成功',
             type: 'success'
-          });
+          },
+
+        );
           this.getCrawlList()
         } else {
           // this.crawlList = []
@@ -295,7 +302,8 @@ export default {
     },
     getCrawlList () {
       selectTask({
-        sql: 'select * from task;'
+        userId:this.id1,
+        //sql: 'select * from task;'
       }).then(res => {
         console.log(res.data)
         if (res.data.errno === 0) {
