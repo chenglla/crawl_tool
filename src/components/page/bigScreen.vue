@@ -323,6 +323,12 @@
                 this.suffixChart.setOption({
                     title: {
                         text: '不同后缀类型的采集数据',
+                      textStyle: {
+                        color: '#fff'
+                      },
+                      // subtextStyle: {
+                      //   color: '#fff'
+                      // },
                         left: 'center'
                     },
                     // legend: {
@@ -412,6 +418,12 @@
                 this.typeCharts.setOption({
                     title: {
                         text: '不同数据类型',
+                        textStyle: {
+                          color: '#fff'
+                        },
+                        subtextStyle: {
+                          color: '#fff'
+                        },
                         subtext: '真实数据',
                         left: 'center'
                     },
@@ -467,6 +479,12 @@
                 this.categoryCharts.setOption( {
                     title: {
                         text: '不同主题数据下载数量',
+                      textStyle: {
+                        color: '#fff'
+                      },
+                      // subtextStyle: {
+                      //   color: '#fff'
+                      // },
                         // subtext: '纯属虚构'
                         left: 'center'
 
@@ -486,7 +504,10 @@
                     legend: {
                         left: '10%',
                         top: '20%',
-                        data: list
+                        data: list,
+                        textStyle:{
+                          color:'#fff'
+                        },
                     },
                     series: [
                         {
@@ -606,6 +627,12 @@
                     title: {
                         text: '不同日期下载数据',
                         // subtext: '纯属虚构'
+                      textStyle: {
+                        color: '#fff'
+                      },
+                      // subtextStyle: {
+                      //   color: '#fff'
+                      // },
                         left: 'center'
                     },
                     xAxis: {
@@ -710,7 +737,7 @@
 </script>
 <style scoped>
 .bg {
-    background: url("../../assets/img/banner.png");
+    background: url("../../assets/img/beijing.png");
     background-size: 100%, 100%;
     height:900px;
     text-align: center;
@@ -766,7 +793,8 @@
 .title {
     font-size: 18px;
     font-weight: bold;
-    color: rgb(51, 51, 51);
+    //color: rgb(51, 51, 51);
+    color: white;
     margin-bottom: 8vh;
 }
 .capsule-item {

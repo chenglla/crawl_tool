@@ -93,20 +93,20 @@
     <el-dialog title="采集任务" :visible.sync="showCrawl">
       <el-form ref="form" :model="form" label-width="100px" class="add-form">
         <el-form-item label="添加任务者">
-          <el-input v-model="form.user"></el-input>
+          <el-input v-model="form.user" readonly="true"></el-input>
         </el-form-item>
         <el-form-item label="采集页面url">
           <el-input v-model="form.url"></el-input>
 
         </el-form-item>
         <el-form-item label="页面分类">
-          <el-input v-model="form.category"></el-input>
+          <el-input v-model="form.category" placeholder="录取分数、招生计划等" ></el-input>
         </el-form-item>
         <el-form-item label="页面主题">
-          <el-input v-model="form.title"></el-input>
+          <el-input v-model="form.title" placeholder="大学名称或省份，如：山东大学、北京市等"></el-input>
         </el-form-item>
         <el-form-item label="任务年份">
-          <el-input v-model="form.year" placeholder="如：2019"></el-input>
+          <el-input v-model="form.year" placeholder="如：2019-2020"></el-input>
         </el-form-item>
         <el-form-item label="页面类型">
           <el-select v-model="form.type" placeholder="请选择类型">
@@ -114,14 +114,15 @@
             <el-option label="动态页面" value="dynamic"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="采集内容后缀">
+        <el-form-item label="采集内容后缀" >
           <el-radio-group v-model="form.suffix">
             <el-radio label="html"></el-radio>
             <el-radio label="jpg"></el-radio>
             <el-radio label="png"></el-radio>
+            <el-radio label="pdf"></el-radio>
             <el-radio label="其他"></el-radio>
           </el-radio-group>
-          <el-input v-model="form.otherSuffix" placeholder="选择其他时，请填写" style="display: inline-block;width: 30%;margin-left: 5%"></el-input>
+          <el-input v-model="form.otherSuffix" placeholder="选择其他时，请填写" style="width: 100%;"></el-input>
         </el-form-item>
         <el-form-item label="新建时间">
           <el-col :span="11">
@@ -129,10 +130,14 @@
           </el-col>
         </el-form-item>
       </el-form>
+
         <div slot="footer" class="dialog-footer">
+          <i style="font-size: 10px" class="el-icon-question"></i>
+          <span class="helpText" @click="gohelpWord">查看帮助文档</span>
           <el-button @click="onCancel">取消</el-button>
           <el-button type="primary" @click="onSubmit">确定</el-button>
         </div>
+
     </el-dialog>
   </div>
 </template>
@@ -143,6 +148,7 @@
 export default {
   data() {
     return {
+      userName:'',
       id1:null,
       problemTitle: '',
       problemContent: '',
@@ -162,6 +168,8 @@ export default {
   mounted () {
     this.id1=localStorage.getItem('groupId')
     console.log("拿到的id",this.id1)
+    this.userName = localStorage.getItem('ms_username')
+    console.log("userName",this.userName)
     this.getCrawlList()
   },
   filters: {
@@ -175,6 +183,7 @@ export default {
     gotoAdd() { // 新建
       this.flag = '新建'
       this.form = {}
+      this.form.user = this.userName
       this.showCrawl = true
       // this.$router.push('/dashboard')
     },
@@ -186,7 +195,7 @@ export default {
     handleOpen(id, url, index) { // 在线打开页面
       let list = url.split('static')
       console.log(list)
-      let newUrl = 'http://101.200.219.237:11005/static' + list[1]
+      let newUrl = 'http://59.110.233.116:11005/static' + list[1]
       window.open(newUrl, '_blank')
     },
     handleEdit(id, item, index) { // 编辑
@@ -326,6 +335,9 @@ export default {
       this.currentPage = currentPage;
       // console.log(currentPage)
     },
+    gohelpWord(){
+      console.log('点击了查看帮助文档')
+    },
   }
 }
 </script>
@@ -354,4 +366,13 @@ export default {
 /*  float: right;*/
 /*  margin: 0 10vw;*/
 /*}*/
+.helpText{
+  font-size: 10px;
+  color:darkgrey;
+  margin-right: 10px;
+  margin-left: 6px;
+}
+.helpText:hover{
+  text-decoration:underline;
+}
 </style>
