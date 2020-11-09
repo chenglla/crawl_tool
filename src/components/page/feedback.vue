@@ -108,22 +108,25 @@
         <el-form-item label="任务年份">
           <el-input v-model="form.year" placeholder="如：2019-2020"></el-input>
         </el-form-item>
-        <el-form-item label="页面类型">
-          <el-select v-model="form.type" placeholder="请选择类型">
+          <el-form-item label="采集内容后缀">
+              <el-radio-group v-model="form.suffix">
+                  <el-radio label="html"></el-radio>
+                  <el-radio label="jpg"></el-radio>
+                  <el-radio label="png"></el-radio>
+                  <el-radio label="pdf"></el-radio>
+                  <el-radio label="其他"></el-radio>
+              </el-radio-group>
+              <el-input v-model="form.otherSuffix" placeholder="选择其他时，请填写" style="width: 100%;"></el-input>
+          </el-form-item>
+        <el-form-item label="页面类型" v-if="form.suffix === 'html'">
+          <el-select v-model="form.type" placeholder="请选择类型" @change="gotoChange">
             <el-option label="静态页面" value="static"></el-option>
             <el-option label="动态页面" value="dynamic"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="采集内容后缀" >
-          <el-radio-group v-model="form.suffix">
-            <el-radio label="html"></el-radio>
-            <el-radio label="jpg"></el-radio>
-            <el-radio label="png"></el-radio>
-            <el-radio label="pdf"></el-radio>
-            <el-radio label="其他"></el-radio>
-          </el-radio-group>
-          <el-input v-model="form.otherSuffix" placeholder="选择其他时，请填写" style="width: 100%;"></el-input>
-        </el-form-item>
+          <el-form-item label="页面类型" v-if="form.suffix !== 'html'">
+              <el-input v-model="form.type='静态页面'" placeholder="如：静态页面" disabled="true"></el-input>
+          </el-form-item>
         <el-form-item label="新建时间">
           <el-col :span="11">
             <el-date-picker type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd" v-model="form.insert_time" style="width: 100%;"></el-date-picker>
@@ -179,6 +182,9 @@ export default {
     }
   },
   methods: {
+      gotoChange() {
+          console.log('change:', this.form.type)
+      },
     // uploadMyFeedback() {},
     gotoAdd() { // 新建
       this.flag = '新建'
@@ -246,10 +252,16 @@ export default {
     },
     confirmAdd () {
       let suffix = ''
+        let type = ''
       if (this.form.suffix === '其他') {
         suffix = this.form.otherSuffix
       } else {
         suffix = this.form.suffix
+      }
+      if (this.form.suffix === 'html') {
+          type = this.form.type
+      } else {
+          type = 'static'
       }
       insertTask({
         userId:this.id1,
@@ -257,7 +269,7 @@ export default {
         url: this.form.url,
         category: this.form.category,
         title: this.form.title,
-        type: this.form.type,
+        type: type,
         suffix: suffix,
         year: this.form.year,
         insertTime: this.form.insert_time
