@@ -80,7 +80,7 @@ export default {
           getAllDown({userId:this.id}).then(res => {
 
               this.sumList = res.data.data
-              this.count = res.data.total -1
+              this.count = res.data.total
               console.log('下载', res.data)
               // let temp = this.option
           })

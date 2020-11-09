@@ -6,7 +6,7 @@
 <!--      </el-card>-->
       <div>
         <el-button type="primary" class="add-crawl" icon="el-icon-plus" @click="gotoAdd">新建</el-button>
-<!--        <el-button type="primary" class="add-crawl" @click="gotoLoop">启动循环下载</el-button>-->
+        <el-button type="primary" class="add-crawl" @click="gotoView">查看采集说明</el-button>
       </div>
     </el-row>
     <el-row v-if="crawlList.length > 0">
@@ -187,11 +187,14 @@ export default {
       this.showCrawl = true
       // this.$router.push('/dashboard')
     },
-    gotoLoop() { // 启动循环下载
-      loopDownloadPage().then(res => {
-        console.log('循环下载完毕')
-      })
+      gotoView(){
+        this.$router.push('/introduction')
     },
+    // gotoLoop() { // 启动循环下载
+    //   loopDownloadPage().then(res => {
+    //     console.log('循环下载完毕')
+    //   })
+    // },
     handleOpen(id, url, index) { // 在线打开页面
       let list = url.split('static')
       console.log(list)

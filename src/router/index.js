@@ -48,6 +48,11 @@ export default new Router({
                     component: resolve => require(['../components/page/promotionCode.vue'], resolve),
                     meta: { title: '在线打开页面' }
                 },
+                {
+                    path: '/introduction',
+                    component: resolve => require(['../components/page/introduction.vue'], resolve),
+                    meta: { title: '在线打开页面' }
+                },
                 // {
                 //     path: '/moudle',
                 //     component: resolve => require(['../components/page/moudleTable.vue'], resolve),
