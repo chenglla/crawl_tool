@@ -7,6 +7,7 @@
       <div>
         <el-button type="primary" class="add-crawl" icon="el-icon-plus" @click="gotoAdd">新建</el-button>
         <el-button type="primary" class="add-crawl" @click="gotoView">查看采集说明</el-button>
+        <el-button type="primary" class="add-crawl" @click="gotoVideo">查看视频教程</el-button>
       </div>
     </el-row>
     <el-row v-if="crawlList.length > 0">
@@ -100,7 +101,15 @@
 
         </el-form-item>
         <el-form-item label="页面分类">
-          <el-input v-model="form.category" placeholder="录取分数、招生计划等" ></el-input>
+            <el-checkbox-group v-model="checkList" @change="changeCategory">
+<!--            <el-checkbox-group v-model="form.category">-->
+                <el-checkbox label="录取分数"></el-checkbox>
+                <el-checkbox label="招生计划"></el-checkbox>
+                <el-checkbox label="选课要求 "></el-checkbox>
+<!--                <el-checkbox label="禁用" disabled></el-checkbox>-->
+<!--                <el-checkbox label="选中且禁用" disabled></el-checkbox>-->
+            </el-checkbox-group>
+<!--          <el-input v-model="form.category" placeholder="录取分数、招生计划等" ></el-input>-->
         </el-form-item>
         <el-form-item label="页面主题">
           <el-input v-model="form.title" placeholder="大学名称或省份，如：山东大学、北京市等"></el-input>
@@ -142,6 +151,18 @@
         </div>
 
     </el-dialog>
+      <el-dialog :visible.sync="showVideo" class="video-dialog">
+          <div class='video-item demo'>
+<!--              <div class="video-title">采集视频教程</div>-->
+<!--              <video src="http://59.110.233.116:11005/static/video/readme.mp4" controls="controls" class="video-text"></video>-->
+              <video-player class="video-player vjs-custom-skin"
+                            ref="videoPlayer"
+                            :playsinline="true"
+                            :options="playerOptions">
+              </video-player>
+          </div>
+
+      </el-dialog>
   </div>
 </template>
 
@@ -151,6 +172,42 @@
 export default {
   data() {
     return {
+        playerOptions: {
+            //播放速度
+            playbackRates: [0.5, 1.0, 1.5, 2.0],
+            //如果true,浏览器准备好时开始回放。
+            autoplay: false,
+            // 默认情况下将会消除任何音频。
+            muted: false,
+            // 导致视频一结束就重新开始。
+            loop: false,
+            // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+            preload: 'auto',
+            language: 'zh-CN',
+            // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+            aspectRatio: '16:9',
+            // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+            fluid: true,
+            sources: [{
+                //类型
+                type: "video/mp4",
+                //url地址
+                // src: '../../assets/video/movie.mp4'
+                src: 'http://59.110.233.116:11005/static/video/readme.mp4'
+            }],
+            //你的封面地址
+            poster: '',
+            //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+            notSupportedMessage: '此视频暂无法播放，请稍后再试',
+            controlBar: {
+                timeDivider: true,
+                durationDisplay: true,
+                remainingTimeDisplay: false,
+                //全屏按钮
+                fullscreenToggle: true
+            }
+        },
+        checkList: [],
       userName:'',
       id1:null,
       problemTitle: '',
@@ -165,6 +222,7 @@ export default {
       flag: '', // 标志是新建还是编辑
       id: -1, // 表示当前编辑或者删除的任务的id
       index: -1, // 表示当前任务所在的当前列表的索引
+        showVideo: false // 播放视频
 
     }
   },
@@ -185,6 +243,9 @@ export default {
       gotoChange() {
           console.log('change:', this.form.type)
       },
+      changeCategory() {
+          console.log('改变后', this.checkList)
+      },
     // uploadMyFeedback() {},
     gotoAdd() { // 新建
       this.flag = '新建'
@@ -196,6 +257,9 @@ export default {
       gotoView(){
         this.$router.push('/introduction')
     },
+      gotoVideo() {
+          this.showVideo = true
+      },
     // gotoLoop() { // 启动循环下载
     //   loopDownloadPage().then(res => {
     //     console.log('循环下载完毕')
@@ -208,9 +272,19 @@ export default {
       window.open(newUrl, '_blank')
     },
     handleEdit(id, item, index) { // 编辑
+        this.checkList = []
       console.log('edit:', item)
+        // console.log('1111', this.form.category, this.checkList)
       const temp = JSON.stringify(item)
       this.form = JSON.parse(temp)
+        this.checkList = []
+        // console.log('222', this.form.category, this.checkList)
+        let list = this.form.category.split('_')
+        for (let i in list) {
+            if (this.checkList.indexOf(list[i]) === -1 && list[i] !== '') {
+                this.checkList.push(list[i])
+            }
+        }
       this.index = index
       this.id = id
       this.flag = '编辑'
@@ -263,6 +337,11 @@ export default {
       } else {
           type = 'static'
       }
+        this.form.category = ''
+        this.form.category = this.checkList.join('_')
+      // for (let i in this.checkList) {
+      //     this.form.category = this.checkList[i] + '_'
+      // }
       insertTask({
         userId:this.id1,
         user: this.form.user,
@@ -289,11 +368,23 @@ export default {
     },
     confirmEdit() {
       let suffix = ''
+        let type = ''
       if (this.form.suffix === '其他') {
         suffix = this.form.otherSuffix
       } else {
         suffix = this.form.suffix
       }
+        if (this.form.suffix === 'html') {
+            type = this.form.type
+        } else {
+            type = 'static'
+        }
+        // this.form.category = ''
+        console.log('分类列表：', this.checkList)
+        this.form.category = this.checkList.join('_')
+        // for (let i in this.checkList) {
+        //     this.form.category += this.checkList[i] + '_'
+        // }
       updateTask({
         userId:this.id1,
         id: this.id,
@@ -301,7 +392,7 @@ export default {
         url: this.form.url,
         category: this.form.category,
         title: this.form.title,
-        type: this.form.type,
+        type: type,
         year: this.form.year,
         suffix: suffix,
         insertTime: this.form.insert_time
@@ -390,4 +481,41 @@ export default {
 .helpText:hover{
   text-decoration:underline;
 }
+.video-item {
+    text-align: center;
+    /*width: 800px;*/
+}
+.video-text {
+    width: 1000px;
+}
+.demo{
+    /*display: inline-block;*/
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 338px;
+    text-align: center;
+    line-height: 100px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #eee;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    margin-right: 4px;
+}
+
+.demo:hover{
+    display: block;
+}
+    /*.video-title {*/
+    /*    text-align: center;*/
+    /*    font-size: 20px;*/
+    /*    font-weight: bold;*/
+    /*}*/
+</style>
+<style>
+    /*.video-dialog .el-dialog {*/
+    /*    !*width: 65%;*!*/
+    /*}*/
 </style>

@@ -79,9 +79,21 @@
             },
             gotoNext() {
                 this.index += 1
+                let steps = document.querySelectorAll('.step-item')
+                for (let i in steps) {
+                    // console.log(i, typeof i, steps[i], steps[i].className, val.toString(), typeof val.toString())
+                    steps[i].className = 'step-item'
+                    steps[this.index].className = 'step-item active'
+                }
             },
             gotoLast() {
                 this.index -= 1
+                let steps = document.querySelectorAll('.step-item')
+                for (let i in steps) {
+                    // console.log(i, typeof i, steps[i], steps[i].className, val.toString(), typeof val.toString())
+                    steps[i].className = 'step-item'
+                    steps[this.index].className = 'step-item active'
+                }
             }
         }
     }

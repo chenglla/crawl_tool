@@ -12,6 +12,11 @@ import './components/common/directives';
 import "babel-polyfill";
 // 将自动注册所有组件为全局组件
 import dataV from '@jiaminghi/data-view'
+import VideoPlayer from 'vue-video-player'
+import 'vue-video-player/src/custom-theme.css'
+import 'video.js/dist/video-js.css'
+
+Vue.use(VideoPlayer)
 
 Vue.use(dataV)
 
