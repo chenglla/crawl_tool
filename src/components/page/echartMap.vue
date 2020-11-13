@@ -92,7 +92,7 @@
                         name: this.resultData[i].city ,
                         value: this.resultData[i].val + 1,
                         // price: (+resultData[i].price).toFixed(2),
-                        // amount: +(resultData[i].count)
+                        flags: this.resultData[i].flag
                     })
                 }
 
@@ -127,7 +127,7 @@
                                 color: '#eee'
                             },
                             emphasis: {//hover各省时的文字颜色
-                                show: false,
+                                show: true,
                                 color: '#eee'
                             }
                         },
@@ -163,11 +163,12 @@
                             tooltip: {
                                 // 利用formatter来自定义tooltip展示的数据
                                 formatter: function (params, ticket, callback) {
-                                    if (params.value) {
-                                        return params.name + '<br/>成交量：' + params.value + '单<br/>'
-                                    } else {
-                                        callback()
-                                    }
+                                    // console.log('params:', params)
+                                    // if (params.value) {
+                                        return params.name + '<br/>采集状态：' + params.data.flags
+                                    // } else {
+                                    //     callback()
+                                    // }
                                 }
                             }
                         }
