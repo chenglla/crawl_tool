@@ -64,7 +64,7 @@ export default {
   },
     data () {
       return {
-          id:null,
+          id:'',
           sumList: [],
           count: 0
       }
@@ -76,7 +76,6 @@ export default {
     },
   methods: {
       getAllDownSum() {
-
           getAllDown({userId:this.id}).then(res => {
 
               this.sumList = res.data.data

@@ -15,7 +15,9 @@ import dataV from '@jiaminghi/data-view'
 import VideoPlayer from 'vue-video-player'
 import 'vue-video-player/src/custom-theme.css'
 import 'video.js/dist/video-js.css'
-
+// import echarts from 'echarts'
+import 'echarts/map/js/china'
+// Vue.prototype.$echarts = echarts
 Vue.use(VideoPlayer)
 
 Vue.use(dataV)

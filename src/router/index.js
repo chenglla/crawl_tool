@@ -96,30 +96,30 @@ export default new Router({
                 //     component: resolve => require(['../components/page/Upload.vue'], resolve),
                 //     meta: { title: '文件上传' }
                 // },
-                {
-                    // vue-schart组件
-                    path: '/charts',
-                    component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
-                    meta: { title: 'schart图表' }
-                },
-                {
-                    // 拖拽列表组件
-                    path: '/drag',
-                    component: resolve => require(['../components/page/DragList.vue'], resolve),
-                    meta: { title: '拖拽列表' }
-                },
-                {
-                    // 拖拽Dialog组件
-                    path: '/dialog',
-                    component: resolve => require(['../components/page/DragDialog.vue'], resolve),
-                    meta: { title: '拖拽弹框' }
-                },
-                {
-                    // 权限页面
-                    path: '/permission',
-                    component: resolve => require(['../components/page/Permission.vue'], resolve),
-                    meta: { title: '权限测试', permission: true }
-                },
+                // {
+                //     // vue-schart组件
+                //     path: '/charts',
+                //     component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
+                //     meta: { title: 'schart图表' }
+                // },
+                // {
+                //     // 拖拽列表组件
+                //     path: '/drag',
+                //     component: resolve => require(['../components/page/DragList.vue'], resolve),
+                //     meta: { title: '拖拽列表' }
+                // },
+                // {
+                //     // 拖拽Dialog组件
+                //     path: '/dialog',
+                //     component: resolve => require(['../components/page/DragDialog.vue'], resolve),
+                //     meta: { title: '拖拽弹框' }
+                // },
+                // {
+                //     // 权限页面
+                //     path: '/permission',
+                //     component: resolve => require(['../components/page/Permission.vue'], resolve),
+                //     meta: { title: '权限测试', permission: true }
+                // },
                 {
                     path: '/404',
                     component: resolve => require(['../components/page/404.vue'], resolve),
@@ -140,7 +140,7 @@ export default new Router({
         {
             path: '/bigScreen',
             name:'bigScreen',
-            component: resolve => require(['../components/page/bigScreen.vue'], resolve)
+            component: resolve => require(['../components/page/bigScreen1112.vue'], resolve)
         },
         // {
         //     path: '*',

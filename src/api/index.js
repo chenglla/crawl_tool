@@ -85,3 +85,24 @@ export function login (res) { // 获取所有不同类型的数据
         params: res
     })
 }
+export function goFeedback (res) { // 缺失数据
+    return request({
+        url: 'add_hiatus_data',
+        method: 'get',
+        params: res
+    })
+}
+export function goFeedQues (res) { // 问题反馈
+    return request({
+        url: 'add_problem',
+        method: 'get',
+        params: res
+    })
+}
+export function getMap () { // 获取地图数据
+    return request({
+        url: 'province_task',
+        method: 'get',
+        // params: res
+    })
+}

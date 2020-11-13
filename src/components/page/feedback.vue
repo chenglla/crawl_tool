@@ -8,6 +8,7 @@
         <el-button type="primary" class="add-crawl" icon="el-icon-plus" @click="gotoAdd">新建</el-button>
         <el-button type="primary" class="add-crawl" @click="gotoView">查看采集说明</el-button>
         <el-button type="primary" class="add-crawl" @click="gotoVideo">查看视频教程</el-button>
+        <el-button type="primary" class="add-crawl" icon="el-icon-edit" @click="gotoFeedback">问题反馈</el-button>
       </div>
     </el-row>
     <el-row v-if="crawlList.length > 0">
@@ -163,11 +164,53 @@
           </div>
 
       </el-dialog>
+      <el-dialog :visible.sync="showFeed" class="video-dialog">
+          <div class="feed-title">问题反馈</div>
+          <div class="selected-item">
+              <el-radio-group v-model="feed" @change="selectFeed">
+                  <el-radio-button label="缺失信息" class="btn-item"></el-radio-button>
+                  <el-radio-button label="问题反馈" class="btn-item"></el-radio-button>
+              </el-radio-group>
+          </div>
+        <div v-if="feed==='缺失信息'">
+            <el-form ref="form" label-width="100px" class="add-form">
+                <el-form-item label="任务者">
+                    <el-input v-model="userName" readonly="true"></el-input>
+                </el-form-item>
+                <el-form-item label="页面分类">
+                    <el-checkbox-group v-model="feedList" @change="changeCategory">
+                        <el-checkbox label="录取分数"></el-checkbox>
+                        <el-checkbox label="招生计划"></el-checkbox>
+                        <el-checkbox label="选课要求 "></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="页面主题">
+                    <el-input v-model="feedTitle" placeholder="大学名称或省份，如：山东大学、北京市等"></el-input>
+                </el-form-item>
+                <el-form-item label="任务年份">
+                    <el-input v-model="feedYear" placeholder="如：2019-2020"></el-input>
+                </el-form-item>
+            </el-form>
+
+        </div>
+        <div v-if="feed==='问题反馈'">
+            <el-form ref="form" label-width="100px" class="add-form">
+                <el-form-item label="任务者">
+                    <el-input v-model="userName" readonly="true"></el-input>
+                </el-form-item>
+                <el-form-item label="问题描述">
+                    <el-input v-model="feedQues" type="textarea"></el-input>
+                </el-form-item>
+            </el-form>
+
+        </div>
+          <el-button class="btn-submit" @click="gotoSubmit" type="primary">提交</el-button>
+      </el-dialog>
   </div>
 </template>
 
 <script>
-  import {selectTask, insertTask, updateTask, deleteTask, loopDownloadPage} from '@/api/index'
+  import {selectTask, insertTask, updateTask, deleteTask, loopDownloadPage, goFeedback, goFeedQues} from '@/api/index'
   import {formatDate} from '../../utils/date.js'
 export default {
   data() {
@@ -208,6 +251,10 @@ export default {
             }
         },
         checkList: [],
+        feedList: [],
+        feedQues: '',
+        feedYear: '',
+        feedTitle: '',
       userName:'',
       id1:null,
       problemTitle: '',
@@ -222,15 +269,16 @@ export default {
       flag: '', // 标志是新建还是编辑
       id: -1, // 表示当前编辑或者删除的任务的id
       index: -1, // 表示当前任务所在的当前列表的索引
-        showVideo: false // 播放视频
-
+      showVideo: false, // 播放视频
+      showFeed: false,
+      feed: '缺失信息'
     }
   },
   mounted () {
     this.id1=localStorage.getItem('groupId')
     console.log("拿到的id",this.id1)
     this.userName = localStorage.getItem('ms_username')
-    console.log("userName",this.userName)
+    console.log("userName",this.userName, this.feed, this.feed === '缺失信息')
     this.getCrawlList()
   },
   filters: {
@@ -240,8 +288,43 @@ export default {
     }
   },
   methods: {
+      selectFeed() {
+          console.log(this.feed)
+      },
       gotoChange() {
           console.log('change:', this.form.type)
+      },
+      gotoSubmit() {
+          if (this.feed === '缺失信息') {
+              goFeedback({
+                year: this.feedYear,
+                title: this.feedTitle,
+              userId: this.id1,
+              user: this.userName,
+              category: this.feedList.join('_'),
+              insertTime: ''
+              }).then(res => {
+                  console.log(res.data)
+                  this.$message({
+                      type: 'success',
+                      message: '反馈成功!'
+                  })
+              })
+          } else if (this.feed === '问题反馈') {
+              goFeedQues({
+                  userId: this.id1,
+                  user: this.userName,
+                  insertTime: '',
+                  question: this.feedQues
+              }).then(res => {
+                console.log(res.data)
+                  this.$message({
+                      type: 'success',
+                      message: '反馈成功!'
+                  })
+              })
+          }
+          this.showFeed = false
       },
       changeCategory() {
           console.log('改变后', this.checkList)
@@ -259,6 +342,9 @@ export default {
     },
       gotoVideo() {
           this.showVideo = true
+      },
+      gotoFeedback() {
+          this.showFeed = true
       },
     // gotoLoop() { // 启动循环下载
     //   loopDownloadPage().then(res => {
@@ -461,7 +547,7 @@ export default {
 }
 .add-crawl {
   float: right;
-  margin: 0 0 4vh 2vw;
+  margin: 0 0 4vh 1vw;
   /*position: absolute;*/
 }
 .add-form {
@@ -508,11 +594,29 @@ export default {
 .demo:hover{
     display: block;
 }
+.feed-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+.selected-item {
+    margin: 3vh 0;
+    text-align: center;
+}
+.btn-item {
+    /*width: 100%;*/
+}
     /*.video-title {*/
     /*    text-align: center;*/
     /*    font-size: 20px;*/
     /*    font-weight: bold;*/
     /*}*/
+.btn-submit {
+    /*text-align: right;*/
+    margin-left: 80%;
+    margin-bottom: 2vh;
+    margin-top: 1vh;
+}
 </style>
 <style>
     /*.video-dialog .el-dialog {*/
