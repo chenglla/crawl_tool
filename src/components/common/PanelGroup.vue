@@ -35,6 +35,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">下载失败</div>
+<!--            <div>{{Object.keys(sumList['下载失败']).length - 1}}</div>-->
           <count-to :start-val="0" :end-val="Object.keys(sumList['下载失败']).length - 1" :duration="3200" class="card-panel-num" />
         </div>
       </div>

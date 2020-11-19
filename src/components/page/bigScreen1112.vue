@@ -77,6 +77,7 @@
     import {getAllDown, getAllUser, getAllBySuffix, getAllParams} from '@/api/index'
     import PanelGroup from '@/components/common/PanelGroup'
     import echartMap from './echartMap'
+    import echarts from 'echarts'
     // const lineChartData = {
     //     newVisitis: {
     //         expectedData: [100, 120, 161, 134, 105, 160, 165],
@@ -156,10 +157,10 @@
           this.id=localStorage.getItem('groupId')
           console.log("拿到的id",this.id)
             this.getAllParams()
-            getAllDown({userId:this.id}).then(res => {
-                console.log('下载', res.data)
-                // let temp = this.option
-            })
+            // getAllDown({userId:this.id}).then(res => {
+            //     console.log('下载', res.data)
+            //     // let temp = this.option
+            // })
             // this.getAllDown()
             // this.getInfoByUser() // 通过创建者查询数据
             // this.getInfoBySuffix() // 根据后缀类型查询到的数据
@@ -280,7 +281,7 @@
                 })
             },
             drawSuffix(list, listTitles, suffixList) {
-                this.suffixCharts = this.echarts.init(this.$refs.suffixChart)
+                this.suffixCharts = echarts.init(this.$refs.suffixChart)
                 this.suffixCharts.setOption({
                     title: {
                         text: '不同后缀类型的采集数据',
@@ -376,7 +377,7 @@
             },
             drawType(val, typeList) {
                 console.log('type:')
-                this.typeChart = this.echarts.init(this.$refs.typeChart)
+                this.typeChart = echarts.init(this.$refs.typeChart)
                 this.typeChart.setOption({
                     title: {
                         text: '不同数据类型',
@@ -512,7 +513,7 @@
             },
             drawTime(list, timeList) {
                 console.log('sunChart:')
-                this.sunChart = this.echarts.init(this.$refs.sunChart)
+                this.sunChart = echarts.init(this.$refs.sunChart)
                 this.sunChart.setOption({
                     title: {
                         text: '不同日期下载数据',

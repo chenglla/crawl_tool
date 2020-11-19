@@ -4,7 +4,7 @@
 
 <script>
     import {getMap} from '@/api/index'
-    // import echarts from 'echarts'
+    import echarts from 'echarts'
     // import china from 'echarts/map/json/china.json'
     // // import axios from 'axios'
     // echarts.registerMap('china', china)
@@ -174,7 +174,7 @@
                         }
                     ]
                 };
-                const myChart = this.echarts.init(document.getElementById('map'), 'dark');
+                const myChart = echarts.init(document.getElementById('map'), 'dark');
                 myChart.setOption(option);
             }
         },

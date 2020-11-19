@@ -51,7 +51,7 @@ export default new Router({
                 {
                     path: '/introduction',
                     component: resolve => require(['../components/page/introduction.vue'], resolve),
-                    meta: { title: '在线打开页面' }
+                    meta: { title: '采集说明' }
                 },
                 // {
                 //     path: '/moudle',
