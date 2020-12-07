@@ -71,7 +71,8 @@
                                 });
                                 localStorage.setItem('ms_username',this.ruleForm.username);
                                 this.$router.push({
-                                  name: 'bigScreen',
+                                  path: '/feedback',
+                                  // name: 'bigScreen',
                                   query: {
                                     userName: res.data.data.userName
                                   }
