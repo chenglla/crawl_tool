@@ -53,6 +53,16 @@ export default new Router({
                     component: resolve => require(['../components/page/introduction.vue'], resolve),
                     meta: { title: '采集说明' }
                 },
+                {
+                    path: '/analysis',
+                    component: resolve => require(['../components/page/analysis.vue'], resolve),
+                    meta: { title: '解析网址' }
+                },
+                {
+                    path: '/analysisDetail',
+                    component: resolve => require(['../components/page/analysisDetail.vue'], resolve),
+                    meta: { title: '解析网址' }
+                },
                 // {
                 //     path: '/moudle',
                 //     component: resolve => require(['../components/page/moudleTable.vue'], resolve),

@@ -106,3 +106,38 @@ export function getMap () { // 获取地图数据
         // params: res
     })
 }
+
+export function getAnalysisList (res) { // 获取解析列表
+    return request({
+        url: 'give_template_second',
+        method: 'get',
+        params: res
+    })
+}
+
+export function chooseTemplate (res) { // 匹配字段选课要求
+    return request({
+        url: 'set_choose_template?' + res,
+        method: 'get',
+        // contentType: 'application/json; charset=utf-8',
+        // params: {res},
+        // dataType: 'json'
+    })
+}
+
+export function enrollTemplate (res) { // 匹配字段招生计划
+    return request({
+        url: 'set_enroll_template?' + res,
+        method: 'get',
+        // params: res
+    })
+}
+
+export function majorTemplate (res) { // 匹配字段录取分数
+    return request({
+        url: 'set_major_template?' + res,
+        method: 'get',
+        // params: res
+    })
+}
+
