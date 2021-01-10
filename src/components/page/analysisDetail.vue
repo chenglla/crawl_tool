@@ -72,6 +72,8 @@
             </div>
         </el-col>
     </el-row>
+      <!-- 没有出现在可视区域的图片链接为默认地址，data-src为真实地址 -->
+<!--      <img src="../../assets/img/default.jpg" alt="" :data-src="realSrc" class="lazy-pic">-->
   </div>
 </template>
 
@@ -133,6 +135,16 @@ export default {
     }
   },
   methods: {
+      // scrollHandle() {
+      //     // 监听屏幕滚动
+      //   },
+      // // 对出现在可视区域内的图片替换真实地址
+      // lazyLoad(pic) {
+      //   // 替换真实地址
+      //   pic.src = pic.getAttribute('data-src')
+      //   // 去掉已加载图片的懒加载样式
+      //   pic.className = pic.className.replace('lazy-pic', '')
+      // },
       getAnalysisList() {
           getAnalysisList({
               id: this.id
@@ -141,6 +153,7 @@ export default {
               if (res.data.code === 200) {
                   // this.list.push(res.data.data.data)
                   let temp = res.data.data.data
+                  // let temp = res.data.data.sheet1
                   this.listkeys = Object.keys(temp[0])
                   let len = Object.keys(temp).length
                   this.sumData = len
